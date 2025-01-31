@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print the api data inside the table</title>
+    <style>
+        table,
+        tr,
+        th, td {
+            border: 2px solid red;
+            padding: 10px;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Rating Rate</th>
+            <th>Rating Count</th>
+        </tr>
+
+        <tbody id="getData">
+
+        </tbody>
+
+
+    </table>
+
+    <script>
+
+        const getData = document.getElementById('getData');  //access the id for table creation
+
+        const fetchData = fetch('https://fakestoreapi.com/products')   //get the data access from this url
+            .then((response) => response.json())     // json used to promises convert to string (json format)
+            .then((data) => {
+                data.forEach((item) => {
+                    getData.innerHTML += `<tr>
+                            <td>${item.id}</td>
+                            <td>${item.title}</td>
+                            <td>${item.price}</td>
+                            <td>${item.description}</td>
+                            <td>${item.category}</td>
+                            <td><img src="${item.image}" alt="" width ="50"></td>
+                            <td>${item.rating.rate} </td>
+                            <td>${item.rating.count}</td>
+                    <tr>`;
+                })
+            })  
+
+            // data using for access the json data structure, forEach method used for one by one each elements
+            // innerHTML property used to insert data into table body dynamically.
+            // The += operator is used to append content without removing the existing content.
+    </script>
+</body>
+
+</html>
